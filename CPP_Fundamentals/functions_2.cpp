@@ -27,3 +27,6 @@ int  main(){
 
 
 }
+
+
+//Define two functions to print the maximum and the minimum number respectively among three numbers entered by user.
