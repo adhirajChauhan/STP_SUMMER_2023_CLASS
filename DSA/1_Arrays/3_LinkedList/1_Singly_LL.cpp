@@ -97,6 +97,63 @@ bool search(Node* head, int key){
     return false;
 }
 
+bool isCircular(Node* head){
+    if(head == NULL){
+        return false;
+    }
+
+    Node* temp = head->next;
+
+    while(temp!= NULL && temp!=head){
+        temp = temp->next;
+    }
+
+    if(temp == head){
+        return true;
+    }
+    return false;
+}
+
+Node* reverse(Node* &head){
+    Node* prev =  NULL;
+    Node* curr = head;
+    Node* next; 
+
+    while(curr != NULL){
+        next = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = next;
+    }
+    return prev; //new head
+}
+
+Node* kReverse(Node* &head, int k){
+    //base case
+    if(head == NULL){
+        return NULL;
+    }
+
+    Node* prev = NULL;
+    Node* curr = head;
+    Node* next = NULL;
+    int count = 0;
+
+    while(curr!=NULL && count < k){
+        next = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr=next;
+        count++;
+    }
+
+    if(next!=NULL){
+        head->next = kReverse(next,k);
+    }
+
+    return prev;
+}
+
 int main(){
     Node* head = NULL;
     insertAtHead(head, 10);
@@ -113,6 +170,16 @@ int main(){
 
     // deletionAtHead(head);
 
-    cout << search(head, 44);
+    // cout << search(head, 44);
+
+    // if(isCircular(head)){
+    //     cout << "Circular" << endl;
+    // }
+    // else{
+    //     cout << "Not circular" << endl;
+    // }
+
+    Node* newHead = reverse(head);
+    display(newHead);
 
 }

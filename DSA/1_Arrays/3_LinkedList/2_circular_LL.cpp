@@ -1,4 +1,5 @@
 #include <iostream>
+#include<map>
 using namespace std;
 
 class Node{
@@ -96,7 +97,64 @@ void display(Node* head){
 }
 
 bool isCircular(Node* head){
-    
+    if(head == NULL){
+        return false;
+    }
+
+    Node* temp = head->next;
+
+    while(temp!= NULL && temp!=head){
+        temp = temp->next;
+    }
+
+    if(temp == head){
+        return true;
+    }
+    return false;
+}
+
+bool detectLoop(Node* head){
+
+    if(head == NULL){
+        return false;
+    }
+
+    map<Node*,bool> visited;
+    Node* temp = head;
+
+    while(temp!=NULL){
+        if(visited[temp] == true){
+            return true;
+        }
+
+        visited[temp] = true;
+        temp=temp->next;
+    }
+
+    return false;
+}
+
+Node* floydDetectLoop(Node* head){
+    if(head == NULL){
+        return NULL;
+    }
+
+    Node* slow = head;
+    Node* fast = head;
+
+    while(slow != NULL && fast != NULL){
+
+        fast = fast->next;
+        if(fast != NULL){
+            fast = fast->next;
+        }
+
+        slow = slow->next;
+
+        if(slow == fast) return slow;
+    }
+
+    return NULL;
 }
 
 int main(){
@@ -111,9 +169,15 @@ int main(){
     insertAtHead(head, 6);
     display(head);
 
-    deletion(head, 4);
-    display(head);
+    // deletion(head, 4);
+    // display(head);
 
+    // if(isCircular(head)){
+    //     cout << "Circular" << endl;
+    // }
+    // else{
+    //     cout << "Not circular" << endl;
+    // }
 
 }
 
