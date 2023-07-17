@@ -157,6 +157,44 @@ Node* floydDetectLoop(Node* head){
     return NULL;
 }
 
+//find the starting node of loop
+
+Node* getStartingNode(Node* head){
+
+    if(head == NULL){
+        return NULL;
+    }
+
+    Node* intersection = floydDetectLoop(head);
+
+    if(intersection == NULL){
+        return NULL;
+    }
+
+    Node* slow = head;
+    while(slow != intersection){
+        slow =  slow->next;
+        intersection = intersection -> next;
+    }
+
+    return slow;
+}
+
+void removeLoop(Node* head){
+    if(head==NULL){
+        return;
+    }
+    Node* startOfLoop = getStartingNode(head);
+    Node* temp = startOfLoop;
+
+    while(temp->next != startOfLoop){
+        temp=temp->next;
+    }
+
+    temp->next = NULL;
+
+}
+
 int main(){
     Node* head = NULL;
     insertAtTail(head, 1);
@@ -178,6 +216,11 @@ int main(){
     // else{
     //     cout << "Not circular" << endl;
     // }
+
+    Node* startingNode = getStartingNode(head);
+    int startingNodeData = startingNode -> data;
+
+    cout << "Starting Node : " << startingNodeData;
 
 }
 
