@@ -42,6 +42,9 @@ class Stack{
     }
 
     //empty
+    bool empty(){
+        return top == -1;
+    }
 };
 
 int main(){
